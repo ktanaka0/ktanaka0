@@ -6,7 +6,7 @@ on:
   pull_request_review_comment:
     types: [created]
   issues:
-    types: [opened, assigned, labeled]
+    types: [opened]
   pull_request_review:
     types: [submitted]
 
@@ -16,7 +16,7 @@ jobs:
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
-      (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude') || github.event.action == 'labeled'))
+      (github.event_name == 'issues')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -43,8 +43,6 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          assignee_trigger: "claude"
-          label_trigger: "claude"
           base_branch: "main"
           mcp_config: |
             {
@@ -56,14 +54,19 @@ jobs:
               }
             }
           custom_instructions: |
+            あなたはこのリポジトリの開発者です。issueの内容を読み、実装してください。
+
+            実装手順：
+            1. issueの内容を理解する
+            2. 必要なコード変更を実装する
+            3. 変更をコミットする
+            4. PRを作成する（mainブランチへ）
+
             実装が完了したら、必ず以下の手順でスクリーンショットを撮影してください：
-
-            1. ローカルサーバーを起動する（npx serve . または python -m http.server）
-            2. Playwright MCPを使ってブラウザでアプリを開く
+            1. ローカルサーバーを起動する（python -m http.server 8080）
+            2. Playwright MCPを使ってブラウザで http://localhost:8080 を開く
             3. 実装した機能のスクリーンショットを撮影する
-
-            そのあとは、PRをmainブランチに向けて作成してください。
-            4. スクリーンショットをPRのdescriptionまたはコメントに添付する
+            4. スクリーンショットをPRのdescriptionに添付する
 
             スクリーンショットはMarkdown形式で貼り付けてください：
             ![Screenshot](screenshot.png)
