@@ -64,10 +64,4 @@ jobs:
             3. git add と git commit で変更をコミットする
             4. **必ず gh pr create コマンドでPRを作成する（base branchはmain）**
 
-            実装が完了したら、必ず以下の手順でスクリーンショットを撮影してください：
-            1. ローカルサーバーを起動する（python -m http.server 8080）
-            2. Playwright MCPを使ってブラウザで http://localhost:8080 を開く
-            3. 実装した機能のスクリーンショットを撮影する
-            4. スクリーンショットをPRのdescriptionに添付する
-
             プルリクエストのタイトルや説明は日本語で記述してください。
