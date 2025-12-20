@@ -43,7 +43,6 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          base_branch: "main"
           mcp_config: |
             {
               "mcpServers": {
@@ -53,14 +52,17 @@ jobs:
                 }
               }
             }
-          custom_instructions: |
-            あなたはこのリポジトリの開発者です。issueの内容を読み、実装してください。
+          prompt: |
+            REPO: ${{ github.repository }}
+            ISSUE NUMBER: ${{ github.event.issue.number }}
+
+            issueの内容を確認し、必要な修正を行い、プルリクエストを作成してください。
 
             実装手順：
-            1. issueの内容を理解する
+            1. gh issue view コマンドでissueの内容を取得する
             2. 必要なコード変更を実装する
-            3. 変更をコミットする
-            4. PRを作成する（mainブランチへ）
+            3. git add と git commit で変更をコミットする
+            4. **必ず gh pr create コマンドでPRを作成する（base branchはmain）**
 
             実装が完了したら、必ず以下の手順でスクリーンショットを撮影してください：
             1. ローカルサーバーを起動する（python -m http.server 8080）
@@ -68,5 +70,4 @@ jobs:
             3. 実装した機能のスクリーンショットを撮影する
             4. スクリーンショットをPRのdescriptionに添付する
 
-            スクリーンショットはMarkdown形式で貼り付けてください：
-            ![Screenshot](screenshot.png)
+            プルリクエストのタイトルや説明は日本語で記述してください。
