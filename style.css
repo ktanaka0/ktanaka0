@@ -6,7 +6,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
     min-height: 100vh;
     padding: 40px 20px;
 }
@@ -14,15 +14,15 @@ body {
 .container {
     max-width: 500px;
     margin: 0 auto;
-    background: white;
+    background: #2a2a2a;
     border-radius: 16px;
     padding: 30px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #ffffff;
     margin-bottom: 25px;
     font-size: 28px;
 }
@@ -36,22 +36,24 @@ h1 {
 #todo-input {
     flex: 1;
     padding: 12px 16px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid #444444;
     border-radius: 8px;
     font-size: 16px;
+    background: #1a1a1a;
+    color: #ffffff;
     transition: border-color 0.3s;
 }
 
 #todo-input:focus {
     outline: none;
-    border-color: #ef4444;
+    border-color: #666666;
 }
 
 #todo-form button {
     padding: 12px 24px;
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    background: linear-gradient(135deg, #333333 0%, #000000 100%);
     color: white;
-    border: none;
+    border: 1px solid #444444;
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
@@ -60,7 +62,7 @@ h1 {
 
 #todo-form button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
 }
 
 #todo-list {
@@ -71,7 +73,8 @@ h1 {
     display: flex;
     align-items: center;
     padding: 15px;
-    background: #f8f9fa;
+    background: #1a1a1a;
+    border: 1px solid #444444;
     border-radius: 8px;
     margin-bottom: 10px;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -79,7 +82,7 @@ h1 {
 
 .todo-item:hover {
     transform: translateX(5px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
 }
 
 .todo-item.completed {
@@ -88,7 +91,7 @@ h1 {
 
 .todo-item.completed .todo-text {
     text-decoration: line-through;
-    color: #888;
+    color: #666666;
 }
 
 .todo-checkbox {
@@ -96,19 +99,19 @@ h1 {
     height: 22px;
     margin-right: 15px;
     cursor: pointer;
-    accent-color: #ef4444;
+    accent-color: #666666;
 }
 
 .todo-text {
     flex: 1;
     font-size: 16px;
-    color: #333;
+    color: #ffffff;
 }
 
 .delete-btn {
-    background: #ff6b6b;
+    background: #444444;
     color: white;
-    border: none;
+    border: 1px solid #555555;
     border-radius: 6px;
     padding: 8px 14px;
     cursor: pointer;
@@ -117,12 +120,12 @@ h1 {
 }
 
 .delete-btn:hover {
-    background: #ee5a5a;
+    background: #555555;
 }
 
 .empty-message {
     text-align: center;
-    color: #888;
+    color: #888888;
     padding: 30px;
     font-size: 16px;
 }
