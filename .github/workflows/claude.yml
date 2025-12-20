@@ -61,6 +61,8 @@ jobs:
             1. ローカルサーバーを起動する（npx serve . または python -m http.server）
             2. Playwright MCPを使ってブラウザでアプリを開く
             3. 実装した機能のスクリーンショットを撮影する
+
+            そのあとは、PRをmainブランチに向けて作成してください。
             4. スクリーンショットをPRのdescriptionまたはコメントに添付する
 
             スクリーンショットはMarkdown形式で貼り付けてください：
