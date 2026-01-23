@@ -17,25 +17,39 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Extract Dw number from issue title
+        id: extract_dw
+        run: |
+          TITLE="${{ github.event.issue.title }}"
+          # Dw-123 のような形式から抽出（大文字小文字区別なし）
+          DW_NUM=$(echo "$TITLE" | grep -oiP '^Dw-\d+' | tr '[:upper:]' '[:lower:]')
+          if [ -z "$DW_NUM" ]; then
+            echo "dw_branch=issue-${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+          else
+            echo "dw_branch=$DW_NUM" >> $GITHUB_OUTPUT
+          fi
+
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           base_branch: "main"
-          branch_prefix: "feature/dw-"
-          branch_name_template: "{{prefix}}{{entityNumber}}"
           prompt: |
             REPO: ${{ github.repository }}
             ISSUE NUMBER: ${{ github.event.issue.number }}
+            BRANCH NAME: feature/${{ steps.extract_dw.outputs.dw_branch }}
 
             issueの内容を確認し、必要な修正を行い、プルリクエストを作成してください。
 
             実装手順：
             1. gh issue view コマンドでissueの内容を取得する
             2. 必要なコード変更を実装する
-            3. git add と git commit で変更をコミットする
-            4. **必ず gh pr create コマンドでPRを作成する（base branchはmain）**
+            3. **ブランチ名は必ず "feature/${{ steps.extract_dw.outputs.dw_branch }}" を使用してください**
+            4. git checkout -b でブランチを作成する
+            5. git add と git commit で変更をコミットする
+            6. git push でリモートにプッシュする
+            7. **必ず gh pr create コマンドでPRを作成する（base branchはmain）**
 
             プルリクエストのタイトルや説明は日本語で記述してください。
           claude_args: '--allowed-tools "Read,Edit,Write,Glob,Grep,Bash(git:*),Bash(gh:*)"'
