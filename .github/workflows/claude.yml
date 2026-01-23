@@ -19,14 +19,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Playwright
-        run: npx playwright install --with-deps chromium
-
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@v1
