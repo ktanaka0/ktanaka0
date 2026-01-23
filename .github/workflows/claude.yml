@@ -23,6 +23,8 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           base_branch: "main"
+          branch_prefix: "feature/dw-"
+          branch_name_template: "{{prefix}}{{entityNumber}}"
           prompt: |
             REPO: ${{ github.repository }}
             ISSUE NUMBER: ${{ github.event.issue.number }}
