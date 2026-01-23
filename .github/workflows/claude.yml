@@ -57,3 +57,4 @@ jobs:
             4. **必ず gh pr create コマンドでPRを作成する（base branchはmain）**
 
             プルリクエストのタイトルや説明は日本語で記述してください。
+          claude_args: '--allowed-tools "Bash(gh issue view*),Bash(gh issue list*),Bash(gh pr create*),Bash(gh pr view*),Bash(gh pr list*),Bash(git *)"'
