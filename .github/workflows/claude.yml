@@ -35,21 +35,19 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           base_branch: "main"
+          branch_prefix: "feature/"
+          branch_name_template: "${{ steps.extract_dw.outputs.dw_branch }}"
           prompt: |
             REPO: ${{ github.repository }}
             ISSUE NUMBER: ${{ github.event.issue.number }}
-            BRANCH NAME: feature/${{ steps.extract_dw.outputs.dw_branch }}
 
             issueの内容を確認し、必要な修正を行い、プルリクエストを作成してください。
 
             実装手順：
             1. gh issue view コマンドでissueの内容を取得する
             2. 必要なコード変更を実装する
-            3. **ブランチ名は必ず "feature/${{ steps.extract_dw.outputs.dw_branch }}" を使用してください**
-            4. git checkout -b でブランチを作成する
-            5. git add と git commit で変更をコミットする
-            6. git push でリモートにプッシュする
-            7. **必ず gh pr create コマンドでPRを作成する（base branchはmain）**
+            3. git add と git commit で変更をコミットする
+            4. **必ず gh pr create コマンドでPRを作成する（base branchはmain）**
 
             プルリクエストのタイトルや説明は日本語で記述してください。
           claude_args: '--allowed-tools "Read,Edit,Write,Glob,Grep,Bash(git:*),Bash(gh:*)"'
