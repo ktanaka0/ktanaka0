@@ -1,6 +1,3 @@
 # Claude Code local settings
 .claude/settings.local.json
 .claude/projects/
-
-# Implementation plan (temporary)
-plan.md

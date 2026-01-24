@@ -52,14 +52,15 @@ jobs:
             ## ステップ2: 実装
             plan.md の内容に従って実装：
             - 必要なファイルを編集
-            - git add と git commit でコミット（plan.mdは含めない）
+            - plan.md と変更したファイルを git add
+            - git commit でコミット（plan.mdを含める）
 
             ## ステップ3: PR作成（/create-pr command）
             .claude/commands/create-pr.md のテンプレートに従ってPR作成：
             - gh pr create でPRを作成（base branch: main）
 
             **重要な注意事項：**
-            - plan.md はコミットに含めないこと
+            - plan.md を必ずコミットに含めること（実行確認のため）
             - PRの本文は .claude/commands/create-pr.md のテンプレート形式を使用
             - プルリクエストのタイトルと説明は日本語で記述
             - セキュリティチェック（XSS対策など）を必ず実施
