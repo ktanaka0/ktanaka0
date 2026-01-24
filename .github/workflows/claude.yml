@@ -47,7 +47,8 @@ jobs:
             1. gh issue view コマンドでissueの内容を取得する
             2. 必要なコード変更を実装する
             3. git add と git commit で変更をコミットする
-            4. **必ず gh pr create コマンドでPRを作成する（base branchはmain）**
+            4. **.claude/skills/create-pr.md のテンプレートに従って gh pr create コマンドでPRを作成する（base branchはmain）**
 
             プルリクエストのタイトルや説明は日本語で記述してください。
+            必ず .claude/skills/create-pr.md のテンプレート形式を使用してください。
           claude_args: '--allowed-tools "Read,Edit,Write,Glob,Grep,Bash(git:*),Bash(gh:*)"'
