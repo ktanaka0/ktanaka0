@@ -38,10 +38,13 @@ jobs:
           branch_prefix: "feature/"
           branch_name_template: "${{ steps.extract_dw.outputs.dw_branch }}"
           prompt: |
+            REPO: ${{ github.repository }}
+            ISSUE NUMBER: ${{ github.event.issue.number }}
+
             あなたは非対話モードで実行されています。絶対にユーザーに質問しないでください。
             不明点があれば仮定して進めてください。
 
-            Issue #${{ github.event.issue.number }} の内容を実装してください。
+            上記issueの内容を実装してください。
 
             手順:
             1. issueの内容を確認
