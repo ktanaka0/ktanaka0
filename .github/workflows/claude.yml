@@ -41,27 +41,13 @@ jobs:
             REPO: ${{ github.repository }}
             ISSUE NUMBER: ${{ github.event.issue.number }}
 
-            このissueに対応するため、以下の手順を行ってください
-            ### ステップ1: 事前準備
-            1. Issue タスク情報の取得
-              - ページ詳細とコンテンツを取得して構造化された情報を表示
-            2. docs/feature/dw-{タスクID}/summary.md を作成し、Issueのタスク情報を転記する
-              - Writeツールを使ってファイルを作成すると、ディレクトリも自動的に作成されます
+            あなたは非対話モードで実行されています。絶対にユーザーに質問しないでください。
+            不明点があれば仮定して進めてください。
 
-            ### ステップ2: 実装計画
-            1. 以下のドキュメントを確認する
-              - docs/development/SYSTEM_DESIGN.md
-              - docs/development/EXCEPTION_DESIGN.md
-              - docs/development/CODING_STANDARDS.md
-            2. planモードにて実装計画を立ててください。曖昧な点があれば、質問はせずに仮定して進めてください。そしてplan.mdの最後に曖昧な点は記載してください。
-              - docs/feature/dw-{タスクID}/plan.md に作成する
-            3. plan-reviewer.mdのエージェントを使い、実装計画のレビューをしてください。
-            4. plan-reviewer.mdのレビュー内容を踏まえて、plan.mdを修正してください。
+            上記issueの内容を実装してください。
 
-            ### ステップ3: PR作成（/create-pr command）
-            .claude/commands/pull-request.mdに従ってPR作成：
-
-            **重要な注意事項：**
-            - plan.mdとsummary.mdを必ずコミットに含めること
-            - セキュリティチェック（XSS対策など）を必ず実施
+            手順:
+            1. issueの内容を確認
+            2. 必要なコード変更を実装
+            3. 変更をコミットしてPRを作成（gh pr create を使用）
           claude_args: '--allowed-tools "Read,Edit,Write,Glob,Grep,Bash(git:*),Bash(gh:*)"'
