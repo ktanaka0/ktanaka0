@@ -50,4 +50,4 @@ jobs:
             1. issueの内容を確認
             2. 必要なコード変更を実装
             3. 変更をコミットしてPRを作成（gh pr create を使用）
-          claude_args: '--allowed-tools "Read,Edit,Write,Glob,Grep,Bash(git:*),Bash(gh:*)"'
+          claude_args: '--allowedTools "Read" "Edit" "Write" "Glob" "Grep" "Bash(git:*)" "Bash(gh:*)"'
