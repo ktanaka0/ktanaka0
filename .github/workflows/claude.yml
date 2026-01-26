@@ -34,7 +34,7 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          base_branch: "master"
+          base_branch: "main"
           branch_prefix: "feature/"
           branch_name_template: "${{ steps.extract_dw.outputs.dw_branch }}"
           prompt: |
