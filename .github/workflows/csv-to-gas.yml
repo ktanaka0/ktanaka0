@@ -32,11 +32,18 @@ jobs:
             FILENAME=$(basename "$file")
             CONTENT=$(base64 -w 0 "$file")
 
+            # JSONペイロードをファイルに書き出し
+            jq -n --arg fn "$FILENAME" --arg ct "$CONTENT" \
+              '{filename: $fn, content: $ct}' > /tmp/payload.json
+
+            echo "ペイロードサイズ: $(wc -c < /tmp/payload.json) bytes"
+
+            # GAS Web Appはリダイレクトするため --post301 --post302 --post303 でボディを維持
             HTTP_STATUS=$(curl -s -o /tmp/response.txt -w "%{http_code}" \
               -X POST \
               -H "Content-Type: application/json" \
-              -d "{\"filename\": \"$FILENAME\", \"content\": \"$CONTENT\"}" \
-              -L \
+              -d @/tmp/payload.json \
+              -L --post301 --post302 --post303 \
               "$GAS_DEPLOY_URL")
 
             RESPONSE=$(cat /tmp/response.txt)
