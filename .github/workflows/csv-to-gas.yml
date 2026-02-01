@@ -38,12 +38,11 @@ jobs:
 
             echo "ペイロードサイズ: $(wc -c < /tmp/payload.json) bytes"
 
-            # GAS Web Appはリダイレクトするため --post301 --post302 --post303 でボディを維持
+            # GASに送信（-dでPOST、リダイレクト後はGETで応答を取得）
             HTTP_STATUS=$(curl -s -o /tmp/response.txt -w "%{http_code}" \
-              -X POST \
               -H "Content-Type: application/json" \
               -d @/tmp/payload.json \
-              -L --post301 --post302 --post303 \
+              -L \
               "$GAS_DEPLOY_URL")
 
             RESPONSE=$(cat /tmp/response.txt)
