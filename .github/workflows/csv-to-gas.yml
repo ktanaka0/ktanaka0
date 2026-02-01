@@ -1,0 +1,52 @@
+name: Send CSV to Google Apps Script
+
+on:
+  push:
+    paths:
+      - '**/*.csv'
+
+jobs:
+  send-csv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 追加・変更されたCSVファイルを検出して送信
+        env:
+          GAS_DEPLOY_URL: ${{ secrets.GAS_DEPLOY_URL }}
+        run: |
+          # 追加・変更されたCSVファイルを取得
+          CSV_FILES=$(git diff --name-only --diff-filter=ACM HEAD~1 HEAD -- '*.csv')
+
+          if [ -z "$CSV_FILES" ]; then
+            echo "CSVファイルの変更はありません"
+            exit 0
+          fi
+
+          # 各CSVファイルをGASに送信
+          for file in $CSV_FILES; do
+            echo "送信中: $file"
+            FILENAME=$(basename "$file")
+            CONTENT=$(base64 -w 0 "$file")
+
+            HTTP_STATUS=$(curl -s -o /tmp/response.txt -w "%{http_code}" \
+              -X POST \
+              -H "Content-Type: application/json" \
+              -d "{\"filename\": \"$FILENAME\", \"content\": \"$CONTENT\"}" \
+              -L \
+              "$GAS_DEPLOY_URL")
+
+            RESPONSE=$(cat /tmp/response.txt)
+            echo "ステータス: $HTTP_STATUS"
+            echo "レスポンス: $RESPONSE"
+
+            if [ "$HTTP_STATUS" -lt 200 ] || [ "$HTTP_STATUS" -ge 300 ]; then
+              echo "エラー: $file の送信に失敗しました (HTTP $HTTP_STATUS)"
+              exit 1
+            fi
+
+            echo "$file を送信しました"
+          done
